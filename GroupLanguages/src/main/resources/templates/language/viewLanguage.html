@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments::header"></head>
+<body>
+    <div class="fluid-content">
+    	<nav th:replace="fragments::main-nav"></nav>
+    	<div class="row">
+    		<div class="col-12">
+    			<ul>
+    				<li>Name: <span th:text="${language.name}"></span></li>
+    				<li>Creator: <span th:text="${language.creator}"></span></li>
+    				<li>Current Version: <span th:text="${language.currentVersion}"></span></li>
+    			</ul>
+    			<a th:href="@{|/language/delete/${language.id}|}"></a>
+			    <a th:href="@{|/language/edit/${language.id}|}"></a>
+    		</div>
+    	</div>
+    </div>
+</body>
+</html>
+<span th:text="${language.name}"></span>
