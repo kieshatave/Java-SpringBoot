@@ -35,19 +35,14 @@ public class LanguageService {
 		}
 	}
 	
-	public Language update(Long id, Language langUpdate) {
-		
+	public void update(Long id, Language langUpdate) {
 		Language language = this.findById(id);
-		
 		if( language != null ) {
 			language.setName(langUpdate.getName());
 			language.setCreator(langUpdate.getCreator());
 			language.setCurrentVersion(langUpdate.getCurrentVersion());
 			this.save(language);
-			return language;
 		}
-		
-		return null;
 	}
 	
 	public void delete(Language language) {

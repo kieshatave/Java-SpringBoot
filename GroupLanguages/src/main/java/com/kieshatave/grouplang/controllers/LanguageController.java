@@ -84,11 +84,9 @@ public class LanguageController extends HomeController{
 	public String updateLanguage(@PathVariable Long languageId, 
 			@Valid Language language, BindingResult result, RedirectAttributes attributes){
 		if( result.hasErrors() ) return String.format("redirect:/language/edit/%d", languageId);
-		if( this.service.update(languageId, language) != null ) {
-			attributes.addFlashAttribute("messages", new ArrayList<String>(Arrays.asList(String.format("%s has been updated", language.getName()))));
-			return "redirect:/language";
+		else {
+			service.update(languageId, language);
+			return "redirect:/";
 		}
-		attributes.addFlashAttribute("errors", new ArrayList<String>(Arrays.asList("Invalid language id")));
-		return "language/editLanguage.html";
 	}
 }

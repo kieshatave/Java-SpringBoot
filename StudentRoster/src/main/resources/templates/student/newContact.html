@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head th:replace="fragments::header"></head>
+	<body>
+	    <div class="container-fluid">
+			<div class="row align-content-start">
+				<h1>New Contact</h1>
+				<form th:action="@{/contact/create}" method="POST" th:object="${song}">
+					<div class="form-group">
+						<select>
+							<option th:each="student : ${student}">
+								<span th:text="${student.firstName}, ${student.lastName}"></span>
+							</option>
+						</select>
+					</div>
+	    			<div class="form-group">
+		    			<label>First Name: </label>
+						<input type="text" th:field="*{address}" class="form-control" id="address"/>
+					</div>
+					<div class="form-group">
+						<label>City: </label>
+						<input type="text" th:field="*{city}" class="form-control" id="city"/>
+					</div>
+					<div class="form-group">
+						<label>State: </label>
+						<input type="text" th:field="*{state}" class="form-control" id="state"/>
+					</div>	
+					<input type="submit" value="Create" class="btn btn-outline-dark">		
+				</form>
+			</div>
+	    </div>
+	</body>
+</html>

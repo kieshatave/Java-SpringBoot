@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head th:replace="fragments::header"></head>
+	<body>
+	    <div class="container-fluid">
+			<div class="row align-content-start">
+				<h1>All Students</h1>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Age</th>
+							<th>Address</th>
+							<th>City</th>
+							<th>State</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="student : ${student}">
+							<td th:text="${student.firstName} ${student.lastName}"></td>
+							<td th:text="${student.age}"></td>
+							<td th:text="${contact.address}"></td>
+							<td th:text="${contact.city}"></td>
+							<td th:text="${contact.state}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+	    </div>
+	</body>
+</html>
