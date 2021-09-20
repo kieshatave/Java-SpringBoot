@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head th:replace="fragments::header"></head>
+	<body>
+		<div class="container-fluid">
+	    	<nav th:replace="fragments::nav"></nav>
+	    	<div class="row">
+	    		<h1>Add a Song</h1>
+	    		<div class="col-12">
+		    		<form th:action="@{/song/add}" method="POST" th:object="${song}">
+		    			<div class="mb-3">
+			    			<label for="title" path="title">Title: 
+								<input type="text" th:field="*{title}" class="form-control" id="title"/>
+							</label>
+						</div>
+						<div class="mb-3">
+							<label path="artist">Artist: 
+								<input type="text" th:field="*{artist}" class="form-control" id="artist"/> 
+							</label>
+						</div>
+						<div class="mb-3">
+							<label path="rating">Rating (1-10): 
+								<input type="number" th:field="*{rating}" min="1" max="10" class="form-control" id="rating"/>  
+							</label>
+						</div>	
+						<input type="submit" value="Add Song" class="btn btn-outline-dark">		
+					</form>
+	    		</div>
+	    	</div>
+		</div>
+	</body>

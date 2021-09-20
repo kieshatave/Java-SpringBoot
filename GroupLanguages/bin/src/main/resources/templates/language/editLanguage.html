@@ -7,7 +7,7 @@
     	<div th:replace="fragments::messages"></div>
     	<div class="row">
     		<div class="col-12">
-    			<form th:action="@{|/language/update/${language.id}|}" th:object="${language}" method="POST">
+    			<form th:action="@{|/language/update/${language.id}|}" th:object="${langauge}" method="POST">
     			
     				<input type="text" th:field="*{name}" placeholder="Name" th:errorclass="input_error_highlight">
     				<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error_message"/>

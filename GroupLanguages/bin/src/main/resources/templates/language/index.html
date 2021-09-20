@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments::header"></head>
+<body>
+    <div class="container-fluid">
+    	<div th:replace="fragments::messages"></div>
+    	<div class="row">
+    		<table class="table table-striped">
+			  <thead>
+			    <tr>
+			      <th scope="col">Name</th>
+			      <th scope="col">Creator</th>
+			      <th scope="col">Version</th>
+			      <th scope="col">Action</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr th:each="language : ${languages}">
+			      <th><a th:href="@{|/language/${language.id}|}" th:text="${language.name}"></a></th>
+			      <td th:text="${language.creator}"></td>
+			      <td th:text="${language.currentVersion}"></td>
+			      <td>
+			      	<a th:href="@{|/language/delete/${language.id}|}">Delete</a>
+			      	<a th:href="@{|/language/edit/${language.id}|}">Edit</a>
+			      </td>
+			    </tr>
+			  </tbody>
+			</table>
+    	</div>
+    	<div class="row">
+    		<form action="/language/create" th:object="${language}" method="POST" >
+    		
+    			<input type="text" th:field="*{name}" placeholder="Name" th:errorclass="input_error_highlight">
+    			<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error_message"/>
+    				
+    			<input type="text" th:field="*{creator}" placeholder="Creator" th:errorclass="input_error_highlight">
+    			<p  th:if="${#fields.hasErrors('creator')}" th:errors="*{creator}" class="error_message"/>
+    				
+    			<input type="text" th:field="*{currentVersion}" placeholder="Current Version" th:errorclass="input_error_highlight">
+    			<p  th:if="${#fields.hasErrors('currentVersion')}" th:errors="*{currentVersion}" class="error_message"/>
+    				
+    			<button type="submit">Submit</button>
+    			
+    		</form>
+    	</div>
+    </div>
+</body>
+</html>

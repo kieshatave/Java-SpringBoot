@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head th:replace="fragments::header"></head>
+	<body>
+	    <div class="container-fluid">
+	    	<nav th:replace="fragments::nav"></nav>
+			<div class="row">
+				<div class="card" style="width: 18rem;">
+				  <div class="card-body">
+				  	<ul class="card-text">
+				  		<li th:each="song : ${songs}">
+				  			<span th:text="@{|Rating: ${song.rating}|}"></span>
+				  			<a th:href="@{|/song/${song.id}|}"></a>
+				  			<span th:text="${song.title}"></span>
+				  			<span th:text="${song.artist}"></span>
+				  		</li>
+				  	</ul>
+				  </div>
+				</div>
+			</div>
+	    </div>
+	</body>
+</html>

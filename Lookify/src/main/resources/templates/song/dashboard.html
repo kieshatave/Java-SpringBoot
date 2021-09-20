@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head th:replace="fragments::header"></head>
+	<body>
+	    <div class="container-fluid">
+	    	<nav th:replace="fragments::nav"></nav>
+			<div class="row">
+				<div class="col-sm-2">
+				<a th:href="@{/song/add}">Add New</a> | <a th:href="@{/search/topTen}">Top Songs</a>
+				</div>
+				<div class="col-sm">
+					<form th:action="@{/search}" th:object="${song}" method="POST">
+						<input type="search" th:field="*{artist}"/>
+						<input type="submit" value="Search Artists"/>
+					</form>
+				</div>
+			</div>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th scope="col">Title</th>
+						<th scope="col">Rating</th>
+						<th scope="col">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+						<tr th:each="song : ${songs}">
+							<td>
+								<a th:href="@{|/song/${song.id}|}"><span th:text="${song.title}"></span></a>
+							</td>
+							<td th:text="${song.rating}"></td>
+							<td><a th:href="@{|/song/delete/${song.id}|}">Delete</a></td>
+						</tr>
+				</tbody>
+			</table>
+	    </div>
+	</body>
+</html>
