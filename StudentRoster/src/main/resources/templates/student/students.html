@@ -16,12 +16,12 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="student : ${student}">
-							<td th:text="${student.firstName} ${student.lastName}"></td>
+						<tr th:each="student : ${students}">
+							<td th:text="@{|${student.firstName} ${student.lastName}|}"></td>
 							<td th:text="${student.age}"></td>
-							<td th:text="${contact.address}"></td>
-							<td th:text="${contact.city}"></td>
-							<td th:text="${contact.state}"></td>
+							<td th:text="${student.contact.address}"></td>
+							<td th:text="${student.contact.city}"></td>
+							<td th:text="${student.contact.state}"></td>
 						</tr>
 					</tbody>
 				</table>
