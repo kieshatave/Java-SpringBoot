@@ -3,24 +3,44 @@ package com.kieshatave.studentRoster.models;
 import java.util.*;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="student")
 public class Student {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+	@Column
     private String firstName;
+	@Column
     private String lastName;
+	@Column
     private Integer age;
     @Column(updatable=false)
     private Date createdAt;
     private Date updatedAt;
+    
+    @PrePersist
+	protected void onCreate() {
+		this.createdAt = new Date(); 
+	}
+	
+	@PreUpdate
+	protected void onUpdate() {
+		this.updatedAt = new Date(); 
+	}
+	
     @OneToOne(mappedBy="student", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private Contact contact;
     
     @ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="dorm_id")
 	private Dorm dorm;
+    
+    @OneToMany(mappedBy="student", fetch = FetchType.LAZY)
+	@JsonIgnore 
+	private List<StudentCourse> studentCourses;
     
     public Student() {
     	
@@ -78,5 +98,11 @@ public class Student {
 	}
 	public void setDorm(Dorm dorm) {
 		this.dorm = dorm;
+	}
+	public List<StudentCourse> getStudentCourses() {
+		return studentCourses;
+	}
+	public void setStudentCourses(List<StudentCourse> studentCourses) {
+		this.studentCourses = studentCourses;
 	}
 }

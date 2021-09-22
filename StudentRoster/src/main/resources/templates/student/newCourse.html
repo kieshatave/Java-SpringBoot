@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head th:replace="fragments::header"></head>
+	<body>
+		<nav th:replace="fragments::navbar"></nav>
+	    <div class="container-fluid">
+			<div class="row align-content-start">
+				<h1>New Course</h1>
+				<form th:action="@{|/student/course/create|}" method="POST" th:object="${course}">
+	    			<div class="form-group">
+		    			<label>Name: </label>
+						<input type="text" th:field="*{name}" class="form-control" id="name"/>
+					</div>
+					<input type="submit" value="Create" class="btn btn-outline-dark">		
+				</form>
+			</div>
+	    	<div class="row">
+	    		<table>
+				    <thead>
+				        <tr>
+				            <th>All Courses</th>
+				        </tr>
+				    </thead>
+				    <tbody>
+				        <tr th:each="course : ${courses}">
+				            <td><a th:href="@{|/student/showCourse/${course.id}|}"><p th:text="${course.name}"></p></td> 
+				        </tr>
+				    </tbody>
+				</table>
+	    	</div>
+	    </div>
+	</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head th:replace="fragments::header"></head>
+	<body>
+		<nav th:replace="fragments::navbar"></nav>
+	    <div class="container-fluid">
+			<div class="row align-content-start">
+				<h1 th:text="${course.name}"></h1>
+			</div>
+			<div class="row">
+				<h4>Students taking this course: </h4>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="course : ${course.studentCourses}">
+							<td th:text="@{|${studentCourse.student.firstName} ${studentCourse.student.lastName}|}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+	    </div>
+	</body>
+</html>

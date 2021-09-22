@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head th:replace="fragments::header"></head>
+	<body>
+		<nav th:replace="fragments::navbar"></nav>
+	    <div class="container-fluid">
+			<div class="row align-content-start">
+				<h1 th:text="@{|${student.firstName} ${student.lastName}|}"></h1>
+				<p>Add course to schedule:</p>
+				<form th:action="@{|/studentcourse/add/{student.id}|}" method="POST">
+	    			<div class="form-group">
+		    			<select th:field="*{studentId}">
+							<option th:each="course : ${courses}" th:value="${course.id}" th:text="@{|${course.name}|}"></option>
+						</select>
+					</div>
+					<input type="submit" value="Add" class="btn btn-outline-dark">		
+				</form>
+			</div>
+			<div class="row">
+				<table>
+					<thead>
+						<tr>
+							<th>Class Name</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="studentCourse : ${student.studentCourses}">
+							<td th:text="@{${studentCourse.course.firstName} {studentCourse.course.lastName}|}"></td>
+							<td><a th:href="@{|/studentcourse/remove/${course.id}|}">Drop</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+	    </div>
+	</body>
+</html>

@@ -14,12 +14,18 @@ public class StudentController {
 	private final StudentService studentService;
 	private final ContactService contactService;
 	private final DormService dormService;
+	private final CourseService courseService;
+	private final StudentCourseService studentCourseService;
 	public StudentController(StudentService studentService, 
 			ContactService contactService,
-			DormService dormService) {
+			DormService dormService,
+			CourseService courseService,
+			StudentCourseService studentCourseService) {
 		this.studentService = studentService;
 		this.contactService = contactService;
 		this.dormService = dormService;
+		this.studentCourseService = studentCourseService;
+		this.courseService = courseService;
 	}
 	
 	@RequestMapping("/")
@@ -42,6 +48,15 @@ public class StudentController {
 		List<Student> students = this.studentService.allStudent();
 		model.addAttribute("students", students);
 		return "/student/students.html";
+	}
+	
+	@GetMapping("/student/show/{studentId}")
+	public String showStudent(@PathVariable("studentId") Long id, Model model) {
+		Student student = this.studentService.findStudent(id);
+		model.addAttribute("student", student);
+		List<Course> courses = this.courseService.allCourses();
+		model.addAttribute("courses", courses);
+		return "/student/showStudent.html";
 	}
 	
 	@GetMapping("/contact/create")
@@ -106,11 +121,48 @@ public class StudentController {
 	}
 	
 	@RequestMapping("/dorm/remove/{studentId}")
-	public String deleteLanguage(@PathVariable Long studentId) {
+	public String deleteStudent(@PathVariable Long studentId) {
 		Student removeStudent = this.studentService.findStudent(studentId);
 		if ( removeStudent != null ) {
-			this.studentService.remove(studentId);
+			this.dormService.removeStudent(studentId);
 		}
 		return "redirect:/dorm/create";
 	}
+	
+	
+	
+	@GetMapping("/student/course/create")
+	public String getCreateCourse(@ModelAttribute("course") Course course, Model model) {
+		List<Course> courses = this.courseService.allCourses();
+		model.addAttribute("courses", courses);
+		return "/student/newCourse.html";
+	}
+	
+	@PostMapping("/student/course/create")
+	public String createCourse(@Valid Course course, BindingResult result) {
+		if(result.hasErrors()) {
+			return "/students";
+		} else {
+			this.courseService.addCourse(course);
+			return "redirect:/student/course/create";
+		}
+	}
+	
+	@PostMapping("/studentcourse/add/{studentId")
+	public String addStudentToCourse(@PathVariable("studentId") Long studentId,
+			@RequestParam(value="courseId") Long courseId) {
+		Student student = this.studentService.findStudent(studentId);
+		Course course = this.courseService.find(courseId);
+		StudentCourse studentCourse = new StudentCourse(course, student);
+		studentCourseService.addCourse(studentCourse);
+		return "redirect:/student/show/" + studentId;
+	}
+	
+	@GetMapping("/student/showCourse/{courseId}")
+	public String getShowCourse(@PathVariable("courseId") Long courseId, Model model) {
+		Course course = this.courseService.find(courseId);
+		model.addAttribute("course", course);
+		return "/student/showCourse.html";
+	}
+	
 }

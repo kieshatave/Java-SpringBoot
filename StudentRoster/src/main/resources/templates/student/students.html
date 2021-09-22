@@ -18,7 +18,9 @@
 					</thead>
 					<tbody>
 						<tr th:each="student : ${students}">
-							<td th:text="@{|${student.firstName} ${student.lastName}|}"></td>
+							<td>
+								<a th:href="@{|/student/show/${student.id}|}" th:text="@{|${student.firstName} ${student.lastName}|}"></a>
+							</td>
 							<td th:text="${student.age}"></td>
 							<td th:text="${student.contact.address}"></td>
 							<td th:text="${student.contact.city}"></td>

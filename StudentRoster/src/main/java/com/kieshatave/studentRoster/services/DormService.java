@@ -28,4 +28,8 @@ public class DormService {
 			return null;
 		}
 	}
+	
+	public void removeStudent(Long id) {
+		this.repo.deleteById(id);
+	}
 }
