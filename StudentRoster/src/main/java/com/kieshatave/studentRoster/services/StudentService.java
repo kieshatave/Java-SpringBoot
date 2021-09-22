@@ -29,4 +29,10 @@ public class StudentService {
 			return null;
 		}
 	}
+	
+	public Student remove(Long id) {
+		Student editDorm = findStudent(id);
+		editDorm.setDorm(null);
+		return repo.save(editDorm);
+	}
 }

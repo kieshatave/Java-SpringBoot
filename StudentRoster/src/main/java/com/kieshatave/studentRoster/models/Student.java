@@ -17,6 +17,11 @@ public class Student {
     private Date updatedAt;
     @OneToOne(mappedBy="student", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private Contact contact;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="dorm_id")
+	private Dorm dorm;
+    
     public Student() {
     	
     }
@@ -67,5 +72,11 @@ public class Student {
 	}
 	public void setContact(Contact contact) {
 		this.contact = contact;
+	}
+	public Dorm getDorm() {
+		return dorm;
+	}
+	public void setDorm(Dorm dorm) {
+		this.dorm = dorm;
 	}
 }

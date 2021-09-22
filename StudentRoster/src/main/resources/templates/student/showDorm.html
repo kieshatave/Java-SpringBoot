@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head th:replace="fragments::header"></head>
+	<body>
+		<nav th:replace="fragments::navbar"></nav>
+	    <div class="container-fluid">
+			<div class="row align-content-start">
+				<h1 th:text="@{|${dorm.name} Dorm|}"></h1>
+				<form th:action="@{|/student/add/{dorm.id}|}" method="POST" th:object="${student}">
+	    			<div class="form-group">
+		    			<select th:field="*{id}">
+							<option th:each="student : ${students}" th:value="${student.id}" th:text="@{|${student.firstName} ${student.lastName}|}"></option>
+						</select>
+					</div>
+					<input type="submit" value="Add" class="btn btn-outline-dark">		
+				</form>
+			</div>
+			<div class="row">
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="student : ${students}">
+							<td th:text="@{|${student.firstName} ${student.lastName}|}"></td>
+							<td><a th:href="@{|/dorm/remove/${student.id}|}">Remove</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+	    </div>
+	</body>
+</html>

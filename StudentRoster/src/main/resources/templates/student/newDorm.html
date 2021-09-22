@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head th:replace="fragments::header"></head>
+	<body>
+		<nav th:replace="fragments::navbar"></nav>
+	    <div class="container-fluid">
+			<div class="row align-content-start">
+				<h1>New Dorm</h1>
+				<form th:action="@{|/dorm/create|}" method="POST" th:object="${dorm}">
+	    			<div class="form-group">
+		    			<label>Name: </label>
+						<input type="text" th:field="*{name}" class="form-control" id="name"/>
+					</div>
+					<input type="submit" value="Create" class="btn btn-outline-dark">		
+				</form>
+			</div>
+			<div class="row">
+				<ul>
+					<li th:each="dorm : ${dorms}">
+						<a th:href="@{|/student/add/${dorm.id}|}" th:text="${dorm.name}"></a>
+					</li>
+				</ul>
+			</div>
+	    </div>
+	</body>
+</html>
